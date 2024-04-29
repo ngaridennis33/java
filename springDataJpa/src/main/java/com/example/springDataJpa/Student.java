@@ -1,4 +1,5 @@
-package com.example.demo;
+
+package com.example.springDataJpa;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
