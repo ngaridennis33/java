@@ -1,4 +1,4 @@
-package com.example.springDataJpa;
+package com.example.springDataJpaExample;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

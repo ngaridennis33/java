@@ -1,28 +1,26 @@
-  version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgresJava
+    environment:
+      POSTGRES_PASSWORD: "password123"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "jpa"
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgresJPA:/var/lib/postgresql/dataJpa
 
-  services:
-    postgres:
-      image: postgres:latest
-      container_name: postgresJava
-      environment:
-        POSTGRES_PASSWORD: "password123"
-        POSTGRES_USER: "admin"
-        POSTGRES_DB: "jpa"
-      ports:
-        - '5432:5432'
-      volumes:
-        - progresJPA:/var/lib/postgresql/dataJpa
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@example.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - '80:80'
+    depends_on:
+      - postgres
 
-    pgadmin:
-      image: dpage/pgadmin4
-      container_name: pgadmin4
-      environment:
-        PGADMIN_DEFAULT_EMAIL: "admin@example.com"
-        PGADMIN_DEFAULT_PASSWORD: "admin"
-      ports:
-        - '8080:80'
-      depends_on:
-        - postgres
-
-  volumes:
-    progresJPA:
+volumes:
+  postgresJPA:
