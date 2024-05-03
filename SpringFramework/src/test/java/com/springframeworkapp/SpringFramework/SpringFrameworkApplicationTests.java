@@ -1,10 +1,10 @@
-package com.springframework;
+package com.springframeworkapp.SpringFramework;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SniptechApplicationTests {
+class SpringFrameworkApplicationTests {
 
 	@Test
 	void contextLoads() {
