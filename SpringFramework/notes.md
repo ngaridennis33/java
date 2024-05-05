@@ -73,3 +73,7 @@ The @Qualifier annotation in Spring is used to disambiguate bean injection when 
 available in the Spring application context. It helps Spring identify which specific bean should be injected when there
 are multiple candidates.
 
+@RestController - This is an annotation used to define a RESTful web service. When you annotate a class with
+@RestController, it's essentially a specialized version of @Controller that's specifically tailored for RESTful web
+services.
+
