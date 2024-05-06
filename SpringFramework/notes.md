@@ -77,3 +77,70 @@ are multiple candidates.
 @RestController, it's essentially a specialized version of @Controller that's specifically tailored for RESTful web
 services.
 
+# NOTE:
+
+- By default, when you create a class and print it, the output is the class name and memory address of the class.
+  However,
+  to get meaningful information about that class, we have to override the string class and provide info about it. To do
+  this,
+  we use the @Override annotation. The @Override annotation in Java is used to indicate that a method is intended to
+  override a method of a superclass or interface.
+  This annotation ensures that the method signature matches the one it's supposed to override and helps prevent errors
+  due
+  to incorrect method names or signatures.
+    - Serialization: Serialization is the process of converting an object into a format that can be easily stored or
+      transmitted and later reconstructed back into an object. In other words, it's the process of converting an object
+      from
+      its in-memory representation to a format that can be stored persistently in a file, database, or transmitted over
+      a network. it's important for:
+        * Persistence - allows objects to be saved to a file or database and later retrieved,
+          enabling persistent storage of application data.
+        * Data Transfer - Serialized objects can be transmitted over a network between different applications or
+          systems.
+        * Object Copying - Serialization can be used to create deep copies of objects. By serializing an object and then
+          deserializing it, you essentially create a new copy of the original object.
+        * Caching: Serialized objects can be cached in memory or on disk to improve performance and reduce the need for
+          expensive computations or database queries.
+    - Deserialization is the process of reconstructing an object from its serialized form. Serialized objects are
+      typically stored in files, databases, or transmitted over a network in the form of a stream of bytes.
+      Deserialization involves reading these bytes and converting them back into an object, restoring its state to what
+      it was before serialization.
+
+    - Accessors, often referred to as getter and setter methods, are methods used to access and modify the private
+      fields (instance variables) of a class. They provide controlled access to the fields, allowing external classes to
+      retrieve or modify the values of these fields indirectly, according to the rules defined within the class.
+        * Getter Methods: Getter methods are used to retrieve the value of a private field from an object. These methods
+          are used to get the current state of the object with the values retrieved written in serialized format. They
+          typically have the following characteristics:
+            - They are public methods.
+            - They have a return type that matches the type of the field they are retrieving.
+            - They have a name prefixed with "get" followed by the name of the field (in camelCase).
+            - They do not take any parameters.
+            - They simply return the value of the field.
+        * Setter Methods: Setter methods are used to modify the value of a private field in an object. During
+          deserialization, setters are used to populate the fields of newly created objects with data from the
+          serialized format. They typically have the following characteristics:
+            - They are public methods.
+            - They have a void return type.
+            - They have a name prefixed with "set" followed by the name of the field (in camelCase).
+            - They take a single parameter whose type matches the type of the field they are modifying.
+            - They set the value of the field to the value provided as the parameter.
+
+The @JsonProperty annotation is used in Java with frameworks like Jackson, which is a popular JSON parsing library. It
+allows you to customize the JSON property name for a field or getter/setter method in a Java class when serializing or
+deserializing objects to and from JSON.
+
+- Java Records: Java records are a new feature introduced in Java 14 as a preview feature and made stable in Java 16. A
+  record is a special kind of class introduced primarily to model immutable data, making it concise, readable, and
+  easier to work with. They are better than Plain Old Java Objects (POJOs) since they are
+    - Concise: They require less boilerplate since you don't need to explicitly define constructors, accessor methods (
+      getters and setters), equals(), hashCode(), or toString() methods. The compiler generates these methods
+      automatically based on the record components.
+    - Readability: Records improve code readability by providing a clear and concise representation of data classes.
+    - Immutability by Default:meaning that their state cannot be changed after initialization.
+    - Semantic Equality:Records redefine the equals() and hashCode() methods to use structural equality based on the
+      values of their components, rather than object references. This ensures that two record instances with the same
+      component values are considered equal, even if they are different instances.
+      This behavior is often desired when working with data classes, as it aligns with the notion of equality based on
+      the data content rather than object identity.
+  
