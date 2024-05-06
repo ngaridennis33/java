@@ -143,4 +143,35 @@ deserializing objects to and from JSON.
       component values are considered equal, even if they are different instances.
       This behavior is often desired when working with data classes, as it aligns with the notion of equality based on
       the data content rather than object identity.
-  
+
+- PathVariables: refer to variables that are part of the URL path in a RESTful API endpoint. These variables are
+  placeholders within the URL pattern that are replaced with actual values when a request is made to the server.
+    - Exmaple:  GET /api/users/{id}, When a request is made to retrieve information about a specific user, the actual
+      user ID would replace {id} in the URL path.
+    - @PathVariable annotation is used to bind the value of the {id} path variable from the URL to the id parameter of
+      the getUserById method.
+- RequestParams:Request parameters are the key-value pairs that are sent along with an HTTP request. They are typically
+  included in the URL query string for GET requests or in the request body for POST requests.
+    - @RequestParam is an annotation used to bind request parameters to method parameters in your controller methods.
+      Request parameters are the key-value pairs that are sent along with an HTTP request, typically in the URL query
+      string or in a form submitted by the client.
+
+  # NOTE:
+  PathVariable and RequestParam are use for extracting data from the URL fo an HTTP request in the spring MVC handle.
+  They differ in that PathVariable extracts data from the URI path in restful web services where URi contains a value or
+  type of resource identifier(the path variable is part of the URI). RequestParam is used to extract query params from
+  the URL that carry context information
+  for the request and are separated from the URI by a '?' and chained with the '&' symbols. (Example is a search or
+  filter text).
+
+@RestController annotation shows that the annotated class is a controller. Rem, controllers are responsible for handling
+incoming HTTP requests, processing them, and producing an appropriate response. They typically receive requests,
+interact with the necessary components (such as services or repositories) to perform business logic, and then return a
+response to the client. Spring detects these classes annotated with it and creates beans of them in the application
+context.
+@RequestMapping is an annotation used to map HTTP requests to specific handler methods in your controller classes.
+Request mapping at method level tells spring that the annotated method should handle a http request of a certain type.
+When used at class level, it specifies a base URL path for all handler methods within that class. Meaning that if a
+class is annotated with @RequestMapping("/api"), then all methods within that class will handle requests starting with
+/api
+      

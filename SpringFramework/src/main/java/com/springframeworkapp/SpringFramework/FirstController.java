@@ -1,10 +1,7 @@
 package com.springframeworkapp.SpringFramework;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class FirstController {
@@ -35,5 +32,21 @@ public class FirstController {
         return "Request accepted and order is: " + order.toString();
     }
 
+    // http://localhost:8080:/api/hello/mike
+//    @GetMapping("api/hello/{user-name}")
+    public String pathVar(
+            @PathVariable("user-name") String userName
+            ) {
+        return "My value = " + userName;
+    }
+
+    // // http://localhost:8080:/api/hello?param_name=paramvalue&param_name_2=value_2
+    @GetMapping("api/hello")
+    public String paramVar(
+            @RequestParam("first-name") String firstName,
+            @RequestParam("last-name") String lastName
+    ) {
+        return "My value = " + firstName + " " + lastName ;
+    }
 
 }
