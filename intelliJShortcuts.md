@@ -7,3 +7,4 @@
 5. Duplicate a line: Ctrl + D
 6. Run a program: Shift + f10
 7. Have multiple cursors Ctrl + Shift & (Move the cursor to the   position)
+8. Open the documentation of hover the annotation  and Ctrl + B

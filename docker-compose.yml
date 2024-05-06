@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgresJava
+    environment:
+      POSTGRES_PASSWORD: "password123"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "jpa"
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgresJPA:/var/lib/postgresql/dataJpa
+      
+volumes:
+  postgresJPA:
