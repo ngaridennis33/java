@@ -8,39 +8,40 @@ import java.util.List;
 
 @RestController
 public class StudentController {
+    private final StudentService studentService;
 
-    private final StudentRepository studentRepository;
-
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
     @PostMapping("api/student")
-    public Student post(
-            @RequestBody Student student
+    public StudentResponseDTO saveStudent(
+            @RequestBody StudentDTO dto
     ) {
-        return studentRepository.save(student);
+        return this.studentService.saveStudent(dto);
     }
 
-    //  Get All Objects
+    //  Get All Students
     @GetMapping("api/students")
-    public List<Student> findAllStudents() {
-        return studentRepository.findAll();
+    public List<StudentResponseDTO> findAllStudents() {
+        return studentService.findAllStudents();
     }
 
+
+    //  Get Students by ID
     @GetMapping("api/student/{student-id}")
-    public Student findStudentById(
+    public StudentResponseDTO findStudentById(
             @PathVariable("student-id") Integer id
     ) {
-        return studentRepository.findById(id)
-                .orElse(new Student());
+        return studentService.findStudentById(id);
     }
 
-    @GetMapping("api/student/search/{first-name}")
-    public List <Student> findStudentByFirstName(
-            @PathVariable("first-name") String firstName
+    // Get Student by name
+    @GetMapping("api/student/search/{name}")
+    public List <StudentResponseDTO> findStudentByFirstName(
+            @PathVariable("name") String name
     ) {
-        return studentRepository.findAllByFirstnameContaining(firstName);
+        return studentService.findStudentByName(name);
     }
 
     @DeleteMapping ("api/student/delete/{id}")
@@ -48,7 +49,6 @@ public class StudentController {
     public void deleteStudentById(
             @PathVariable("id") Integer id
     ) {
-         studentRepository.deleteById(id);
-
+        studentService.delete(id);
     }
 }

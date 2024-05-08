@@ -174,4 +174,58 @@ Request mapping at method level tells spring that the annotated method should ha
 When used at class level, it specifies a base URL path for all handler methods within that class. Meaning that if a
 class is annotated with @RequestMapping("/api"), then all methods within that class will handle requests starting with
 /api
+
+# DTO:
+
+Data Transfer Object. It's a design pattern used to transfer data between software application subsystems or layers.DTOs
+are often used to encapsulate data exchanged between the frontend and backend, or between different layers of the
+backend.DTOs serve several purposes:
+
+- Encapsulation: DTOs encapsulate the data to be transferred, providing a clear boundary between different parts of the
+  application.
+- Data Transformation: DTOs can be used to transform data from one format to another, for example, from database
+  entities
+  to a format suitable for presentation in the frontend.
+- Reduced Coupling: By using DTOs, you can reduce coupling between different layers of your application. For example,
+  changes to the database schema don't necessarily affect the frontend as long as the DTOs remain unchanged.
+- Security: DTOs can also be used to restrict the data that is transferred between layers, ensuring that sensitive
+  information is not exposed unnecessarily.
+
+# SERVICE LAYER
+
+The service layer in the restAPI plays an important role in separating concerns of handling business concerns of
+business login and application specific operations from the presentation layer which is the controoler and the data
+access layer which is the repository.
+it serves as an intermediary between the controller and the repository and encapsulating the business logic and
+providing a reusable and modular and testable codebase.
+
+# Importance of the service layer
+
+- Business Logic Encapsulation: The service layer encapsulates the business logic of the application. This separation
+  ensures that business rules and operations are isolated from the presentation layer (controllers) and the data access
+  layer (repositories), promoting better code organization and maintainability.
+- Reusability: By centralizing business logic in the service layer, you can easily reuse the same logic across different
+  parts of your application. This reduces code duplication and ensures consistency in how business rules are applied
+  throughout the system.
+- Testability: Since the service layer contains most of the application's logic, it becomes easier to test. Unit tests
+  can
+  be written specifically for service methods, mocking any dependencies such as repositories or external services. This
+  helps ensure that the business logic behaves as expected under various conditions.
+- Transaction Management: Spring's declarative transaction management is often applied at the service layer. By
+  annotating
+  service methods with transactional annotations, you can define transactional boundaries around business operations.
+  This
+  ensures that operations either complete successfully or fail as a whole, maintaining data integrity.
+- Abstraction: The service layer provides an abstraction over the underlying data access layer. This allows you to
+  switch
+  data access technologies (e.g., switching from JDBC to JPA) without affecting the service layer or the rest of the
+  application.
+- Security: Security-related concerns can be addressed at the service layer. This includes authentication,
+  authorization,
+  and other access control mechanisms. By centralizing security logic in the service layer, you can ensure consistent
+  enforcement of security policies across the application.
+- Scalability: The service layer can help improve scalability by allowing you to distribute workload across multiple
+  service instances or nodes. With proper design, you can scale individual services independently based on the specific
+  demands of your application.
+
       
