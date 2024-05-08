@@ -1,6 +1,7 @@
-package com.springframeworkapp.SpringFramework;
+package com.springframeworkapp.SpringFramework.studentProfile;
 
 import jakarta.persistence.*;
+import com.springframeworkapp.SpringFramework.student.Student;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class StudentProfile {
     @JoinColumn(
             name = "student_id"
     )
-    private  Student student;
+    private Student student;
 
     public StudentProfile() {
     }

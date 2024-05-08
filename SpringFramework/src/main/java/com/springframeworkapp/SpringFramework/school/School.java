@@ -1,6 +1,7 @@
-package com.springframeworkapp.SpringFramework;
+package com.springframeworkapp.SpringFramework.school;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.springframeworkapp.SpringFramework.student.Student;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

@@ -228,4 +228,11 @@ providing a reusable and modular and testable codebase.
   service instances or nodes. With proper design, you can scale individual services independently based on the specific
   demands of your application.
 
+## APPROACHES TO FORMAT YOUR CODE STRUCTURE
+1. By feature
+2. Layer approach
+3. Domain
+4. By components
+
+
       

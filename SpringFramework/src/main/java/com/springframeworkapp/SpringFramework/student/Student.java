@@ -1,6 +1,8 @@
-package com.springframeworkapp.SpringFramework;
+package com.springframeworkapp.SpringFramework.student;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.springframeworkapp.SpringFramework.school.School;
+import com.springframeworkapp.SpringFramework.studentProfile.StudentProfile;
 import jakarta.persistence.*;
 
 @Entity
@@ -33,7 +35,7 @@ public class Student {
 
 
     @OneToOne(
-            mappedBy = "student",
+            mappedBy = "com/springframeworkapp/SpringFramework/student",
             cascade = CascadeType.ALL
     )
     private StudentProfile studentProfile;

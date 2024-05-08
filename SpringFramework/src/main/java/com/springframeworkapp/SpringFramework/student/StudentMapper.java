@@ -1,5 +1,6 @@
-package com.springframeworkapp.SpringFramework;
+package com.springframeworkapp.SpringFramework.student;
 
+import com.springframeworkapp.SpringFramework.school.School;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +13,6 @@ public class StudentMapper {
 
         var school = new School();
         school.setId(dto.schoolId());
-
         student.setSchool(school);
 
         return student;
