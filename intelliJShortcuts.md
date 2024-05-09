@@ -8,3 +8,4 @@
 6. Run a program: Shift + f10
 7. Have multiple cursors Ctrl + Shift & (Move the cursor to the   position)
 8. Open the documentation of hover the annotation  and Ctrl + B
+9. Create a new test Ctrl + Shift + T

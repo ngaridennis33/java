@@ -35,7 +35,7 @@ public class Student {
 
 
     @OneToOne(
-            mappedBy = "com/springframeworkapp/SpringFramework/student",
+            mappedBy = "student",
             cascade = CascadeType.ALL
     )
     private StudentProfile studentProfile;
