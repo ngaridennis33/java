@@ -310,3 +310,47 @@ There are several types of testing commonly used in Spring Boot applications:
 - End-to-End (E2E) Testing: E2E tests verify the behavior of the entire application from end to end. They simulate user
   interactions with the application and test scenarios that involve multiple components and layers. Tools like Selenium
   or Cucumber are often used for E2E testing in Spring Boot.
+
+## Example 
+```dtd
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class StudentMapperTest {
+
+    @BeforeAll
+    static void beforeAll() {
+        System.out.println("Inside the before all method");
+    }
+
+    @AfterAll
+    static void afterAll() {
+        System.out.println("Inside the After all method");
+    }
+
+    // Setup
+    @BeforeEach
+    void setUp() {
+        System.out.println("Inside the before each method");
+    }
+
+    // TearDown
+    @AfterEach
+    void tearDown() {
+        System.out.println("Inside the after each method");
+    }
+
+    @Test
+    public void testMethod1(){
+        System.out.println("My first Test Method");
+    }
+
+    @Test
+    public void testMethod2(){
+        System.out.println("My Second Test Method");
+    }
+
+}
+```
+

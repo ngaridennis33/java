@@ -1,5 +1,5 @@
 ## INTELLIJ SHORTCUTS
-1. Toggle the side bar:  Alt + L
+1. Toggle the side bar:  Alt + 1
 2. Format existing code: File > Settings > Editor > Code Style >Java > Wrapping and Braces > Ensure right margin is not exceeded
  - Reformat code: Ctrl + Alt + L
 3. Remove unused imports: Ctrl + Alt + "O"
@@ -9,3 +9,4 @@
 7. Have multiple cursors Ctrl + Shift & (Move the cursor to the   position)
 8. Open the documentation of hover the annotation  and Ctrl + B
 9. Create a new test Ctrl + Shift + T
+10. Add static imports Alt + Enter
