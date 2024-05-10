@@ -285,7 +285,8 @@ consistent, and secure. Here's how it addresses the points you've listed:
 Testing refers to the process of verifying that the various components and functionalities of your application work as
 expected. Testing ensures that your code behaves correctly under different conditions and scenarios, helping to identify
 and fix bugs early in the development cycle.
-importance of testing 
+importance of testing
+
 1. Quality assurance: Testing ensures your software works correctly and meets standards.
 2. Regression testing: Ensures new changes don't break existing functionality.
 3. Documentation: Tests serve as living documentation of how your code should behave.
@@ -311,46 +312,56 @@ There are several types of testing commonly used in Spring Boot applications:
   interactions with the application and test scenarios that involve multiple components and layers. Tools like Selenium
   or Cucumber are often used for E2E testing in Spring Boot.
 
-## Example 
+## Example
+
 ```dtd
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+        import static org.junit.jupiter.api.Assertions.*;
 
-class StudentMapperTest {
+        class StudentMapperTest {
 
-    @BeforeAll
-    static void beforeAll() {
+        @BeforeAll
+        static void beforeAll() {
         System.out.println("Inside the before all method");
-    }
+        }
 
-    @AfterAll
-    static void afterAll() {
+        @AfterAll
+        static void afterAll() {
         System.out.println("Inside the After all method");
-    }
+        }
 
-    // Setup
-    @BeforeEach
-    void setUp() {
+        // Setup
+        @BeforeEach
+        void setUp() {
         System.out.println("Inside the before each method");
-    }
+        }
 
-    // TearDown
-    @AfterEach
-    void tearDown() {
+        // TearDown
+        @AfterEach
+        void tearDown() {
         System.out.println("Inside the after each method");
-    }
+        }
 
-    @Test
-    public void testMethod1(){
+        @Test
+        public void testMethod1(){
         System.out.println("My first Test Method");
-    }
+        }
 
-    @Test
-    public void testMethod2(){
+        @Test
+        public void testMethod2(){
         System.out.println("My Second Test Method");
-    }
+        }
 
-}
+        }
 ```
+
+### MOKITO
+
+Mockito is a widely-used mocking framework for Java applications. It allows developers to create mock objects in tests
+to simulate the behavior of real objects. Mock objects are used to isolate the code under test and verify interactions
+between objects without involving real implementations of dependencies. Mockito provides an easy-to-use API for creating
+mock objects, defining their behavior, and verifying method calls.
+
+
 
