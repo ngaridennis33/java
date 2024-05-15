@@ -1,17 +1,15 @@
 services:
   postgres:
-    image: postgres:latest
-    container_name: postgresJava
+    image: mysql/mysql-server:5.7
+    container_name: mysqlJava
     environment:
-      POSTGRES_PASSWORD: "password123"
-      POSTGRES_USER: "admin"
-      POSTGRES_DB: "jpa"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "root"
+      MYSQL_DB: "data_jpa"
     ports:
-      - '5432:5432'
+      - '3306:3306'
     volumes:
-      - /home/denrax/Projects/data/pgdata:/var/lib/postgresql/data
+      - /home/denrax/Projects/data/mysqldata:/var/lib/mysqldata/data
 
 volumes:
-  postgresJPA:
-
-
+  mysqlJPA:

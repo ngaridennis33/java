@@ -1,5 +1,7 @@
 ## DATABASE SETUP USING DOCKER.
 1. Create a new container named mysql running MySQL 5.7. The container will be accessible on port 3306 of your host machine, and the root password for the MySQL database will be 1234.
+# Note:
+   - The initial root account may or may not have a password. If the password exists it is usually a random entry.
 2.  This grants direct access to the container's filesystem and enables you to execute commands
 ```dtd
 docker run --name mysql57 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql/mysql-server:5.7
