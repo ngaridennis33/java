@@ -10,3 +10,4 @@
 8. Open the documentation of hover the annotation  and Ctrl + B
 9. Create a new test Ctrl + Shift + T
 10. Add static imports Alt + Enter
+11. Rename a file or folder Shift + F6
