@@ -9,7 +9,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - postgresJPA:/var/lib/postgresql/dataJpa
-      
+      - /home/denrax/Projects/data/pgdata:/var/lib/postgresql/data
+
 volumes:
   postgresJPA:
