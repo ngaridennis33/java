@@ -11,3 +11,4 @@
 9. Create a new test Ctrl + Shift + T
 10. Add static imports Alt + Enter
 11. Rename a file or folder Shift + F6
+11. Search pres Shift + Shift

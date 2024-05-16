@@ -280,3 +280,79 @@ generation of primary keys which are as follows :
   provider manages this table and uses it to allocate unique values for primary keys.
 - GenerationType.SEQUENCE: This generation-type strategy uses a database sequence to generate primary key values. It
   requires the usage of database sequence objects, which varies depending on the database which is being used.
+
+@Column- This annotation is used to specify the mapping between a persistent field or property of an entity class and a
+database column. The @Column annotation is used to customize the mapping of a specific field to a database column. While
+JPA automatically maps most fields based on naming conventions, the @Column annotation provides developers with greater
+control over the mapping process.
+example
+
+```dtd
+@Entity
+        public class Product {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        @Column(name = "product_name", nullable = false, length = 100, unique = true)
+        private String name;
+
+        @Column(name = "unit_price", precision = 10, scale = 2)
+        private double price;
+
+        // Other fields, constructors, getters, setters, etc.
+        }
+```
+
+* The name attribute of @Column is used to specify the name of the database column. In the example above, the name
+  attribute is set to "product_name", which means that the name field in the Product entity will be mapped to the
+  product_name column in the database.
+
+* The nullable attribute determines whether the column can contain null values. By setting nullable = false, as shown in
+  the example, we are indicating that the name field must have a non-null value in the database.
+
+* The length attribute is used for string-based fields to set the maximum length of the column. In this case, the name
+  column will have a maximum length of 100 characters.
+
+* The unique attribute specifies whether the values in the column must be unique across all records. By setting unique =
+  true, we are ensuring that each name value in the Product table must be unique.
+
+* The precision and scale attributes are used for decimal-based fields to define the total number of digits and the
+  number
+  of digits after the decimal point, respectively. In the example, the price column will have a total of 10 digits, with
+  2 digits after the decimal point.
+
+@Table annotation - The @Table annotation is used to specify the mapping between a JPA entity and a database table.
+This annotation is typically used in conjunction with the @Entity annotation to define the persistence entity class. It
+is used for adding the table name in the particular MySQL database. The @Table annotation provides four attributes,
+allowing you to override; name, catalogue, schema and unique constraints on columns in the table.
+
+* name: Specifies the name of the database table to which the entity is mapped. This attribute is required and defines
+  the
+  actual name of the table in the database.
+* catalog: Specifies the catalog of the database table. This attribute is optional and specifies the database catalog in
+  which the table is located.
+* schema: Specifies the schema of the database table. This attribute is optional and specifies the database schema in
+  which the table is located.
+* uniqueConstraints: Specifies unique constraints on the table. This attribute is optional and allows you to define
+  unique
+  constraints on one or more columns in the table.
+
+Repository - a repository is a mechanism provided by the Spring Data module for simplifying database access and
+interaction with a relational or non-relational database.
+Repository abstraction - this is to reduce the amount of boilerplate code needed to implement the DAO (Data Access
+Object) to interact with data stores. In spring data Jpa, a repository is java interface to abstract the data access
+layer from the business login. it performs CRUD operations and other operations such as paging and sorting.
+Here's a brief overview of some commonly used repository interfaces in Spring Boot:
+
+- CrudRepository: Provides CRUD (Create, Read, Update, Delete) operations for entities. Extends the Repository interface
+  and adds methods like save, findById, findAll, delete, etc.
+
+- PagingAndSortingRepository: Extends CrudRepository and adds support for pagination and sorting of query results.
+
+- JpaRepository: Extends PagingAndSortingRepository and adds additional JPA-specific features, such as support for named
+  queries, flushing changes to the database, and more.
+
+- MongoRepository: Similar to JpaRepository, but designed for MongoDB, providing MongoDB-specific features and
+  functionality.
+

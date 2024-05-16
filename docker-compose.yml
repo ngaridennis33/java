@@ -1,15 +1,18 @@
 services:
-  postgres:
+  mysql:
     image: mysql/mysql-server:5.7
     container_name: mysqlJava
     environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_USER: "root"
-      MYSQL_DB: "data_jpa"
+      MYSQL_USER: "demo_java"
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_PASSWORD: "java"
+      MYSQL_DATABASE: "data_jpa"
     ports:
       - '3306:3306'
+    expose:
+      - '3306'
     volumes:
-      - /home/denrax/Projects/data/mysqldata:/var/lib/mysqldata/data
+      - /home/denrax/Projects/data/mysqldata:/var/lib/mysql
 
 volumes:
   mysqlJPA:
