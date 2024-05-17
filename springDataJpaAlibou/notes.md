@@ -356,3 +356,309 @@ Here's a brief overview of some commonly used repository interfaces in Spring Bo
 - MongoRepository: Similar to JpaRepository, but designed for MongoDB, providing MongoDB-specific features and
   functionality.
 
+## Database Relationships
+
+Database relationships define how data in different tables are connected or related to each other. These relationships
+are crucial for maintaining data integrity and ensuring efficient data retrieval and manipulation. In relational
+databases, relationships are typically established using keys (e.g., primary keys and foreign keys). There are several
+types of relationships:
+
+- One-to-One (1:1) Relationship: In a one-to-one relationship, each record in one table is associated with exactly one
+  record in another table, and vice versa. This relationship is less common but can be useful for splitting data into
+  separate tables to reduce redundancy or improve organization.
+
+- One-to-Many (1:N) Relationship: In a one-to-many relationship, a record in one table can be associated with one or
+  more
+  records in another table, but each record in the second table is associated with only one record in the first table.
+  This is the most common type of relationship in relational databases.
+
+- Many-to-One (N:1) Relationship: In a many-to-one relationship, multiple records in one table can be associated with a
+  single record in another table. This relationship is essentially the inverse of a one-to-many relationship.
+
+- Many-to-Many (N:M) Relationship: In a many-to-many relationship, multiple records in one table can be associated with
+  multiple records in another table, and vice versa. This type of relationship typically requires a junction table or
+  associative entity to manage the relationship.
+
+##### Database relationships are established using keys:
+
+* Primary Key: A primary key uniquely identifies each record in a table. It ensures that each record is unique and
+  provides a way to access and manipulate individual records.
+
+* Foreign Key: A foreign key is a column or set of columns in one table that refers to the primary key in another table.
+  It establishes a link between the two tables and enforces referential integrity, ensuring that the values in the
+  foreign
+  key column(s) match the values in the primary key column(s) of the referenced table.
+
+- By defining appropriate relationships between tables using primary and foreign keys, database designers can create a
+  structured and efficient database schema that accurately represents the relationships between different entities in
+  the
+  system.
+
+* Unidirectional relationship in database design refers to a connection between two entities where the association is
+  only defined in one direction. In relational databases, this is often implemented using foreign key constraints. In a
+  one-to-many unidirectional relationship, one entity references another, but the reverse is not necessarily true. For
+  example, in an "Order" and "Product" scenario, each product belongs to one order, but an order does not directly
+  reference its products. Instead, products reference the order they belong to through a foreign key column. This setup
+  allows for efficient querying but may require additional queries to retrieve related data in the opposite direction.
+* A bidirectional relationship in database design establishes a connection between two entities where the association is
+  defined in both directions. This means that each entity is aware of its relationship with the other entity. In
+  relational databases, bidirectional relationships are typically implemented using foreign key constraints on both
+  sides of the relationship. This allows for efficient querying and navigation of data in both directions. For example,
+  in an "Order" and "Product" scenario, each order can contain multiple products, and each product belongs to one order.
+  Bidirectional relationships provide flexibility and facilitate data retrieval and manipulation. However, they require
+  careful management to ensure data consistency and integrity.
+
+## Inheritance vs Composition
+
+* Inheritance:
+  Inheritance is an "is-a" relationship where one class (subclass or derived class) inherits properties and behaviors
+  from
+  another class (superclass or base class).
+  It allows the subclass to reuse code from the superclass, inheriting fields and methods, and optionally overriding or
+  extending them.
+  Inheritance establishes a hierarchical relationship, often organized as a tree structure.
+  It promotes code reuse and can facilitate polymorphism, allowing objects of subclasses to be treated as objects of the
+  superclass.
+  However, inheritance can lead to tight coupling between classes, making the codebase less flexible and harder to
+  maintain if not used carefully.
+
+* Composition:
+  Composition is a "has-a" relationship where one class contains an instance of another class as a member.
+  It involves creating new functionality by combining existing classes rather than relying on inheritance.
+  Composition allows classes to be composed of other classes, delegating specific tasks to these components.
+  It promotes loose coupling and modular design, as components can be easily replaced or extended without affecting
+  other
+  parts of the system.
+  Composition is often preferred over inheritance because it offers more flexibility and avoids issues like the fragile
+  base class problem and the inability to change behavior at runtime.
+  In summary, inheritance is about defining an "is-a" relationship and promoting code reuse through subclassing, while
+  composition is about defining a "has-a" relationship and building complex objects by combining simpler components.
+  Each
+  approach has its strengths and weaknesses, and the choice between them depends on the specific requirements and design
+  goals of the software project.
+
+@Mappedsuperclass - The @MappedSuperclass annotation in Java Persistence API (JPA) is used to designate a superclass
+whose mapping information is applied to its subclasses. It allows you to define common persistent fields and mappings in
+a superclass without creating a corresponding table for that superclass in the database. Instead, the attributes defined
+in the superclass are inherited by its subclasses, and their mappings are merged into the mapping of each subclass.
+
+@EqualsAndHashCode(callSuper = true) - The @EqualsAndHashCode(callSuper = true) annotation is used in Java with Lombok
+library to automatically generate equals() and hashCode() methods for a class, including fields inherited from its
+superclass.
+
+Here's a breakdown of how it works:
+
+@EqualsAndHashCode: This annotation is used to instruct Lombok to generate equals() and hashCode() methods for the
+annotated class.
+
+callSuper = true: This parameter specifies that the generated equals() and hashCode() methods should include fields
+inherited from the superclass when calculating equality and hash codes.
+
+When you specify callSuper = true, Lombok generates equals() and hashCode() methods that take into account the fields of
+both the current class and its superclass. If any superclass has the @EqualsAndHashCode annotation with callSuper =
+true, Lombok will recursively include fields from all superclasses in the generated methods.
+
+Here's an example usage:
+
+```dtd
+import lombok.EqualsAndHashCode;
+
+        @EqualsAndHashCode(callSuper = true)
+        public class Child extends Parent {
+        private String childField;
+
+        // Constructor, getters, and setters
+
+        }
+```
+
+In this example, Child class inherits from Parent class, and both classes have fields. By annotating Child class with
+@EqualsAndHashCode(callSuper = true), Lombok will generate equals() and hashCode() methods for Child class that consider
+both Child and Parent class fields.
+
+### Inheritance in the Database
+
+nheritance refers to a data modeling technique where one table (child table) inherits attributes and relationships from
+another table (parent table). This concept is often referred to as "table inheritance" or "subclassing" and is commonly
+used in object-relational mapping (ORM) frameworks like Hibernate and in some database management systems (DBMS) like
+PostgreSQL.
+
+Here's an overview of how inheritance works in the database:
+
+Parent Table: The parent table serves as a template or blueprint for the child tables. It contains common attributes and
+relationships that are shared by multiple entities.
+
+Child Table(s): Each child table represents a specific entity or subtype that extends or specializes the parent entity.
+Child tables inherit attributes and relationships from the parent table but can also define additional attributes or
+relationships specific to the subtype.
+
+Inheritance Strategy: There are different strategies for implementing table inheritance, including:
+
+Single Table Inheritance (STI): All attributes of the parent and child entities are stored in a single database table. A
+discriminator column is used to differentiate between different entity types.
+
+Class Table Inheritance (CTI): Each entity type (parent and child) is represented by its own database table. The parent
+table contains common attributes, while child tables contain specific attributes. Relationships are typically
+established using foreign key constraints.
+
+Joined Table Inheritance (JTI): Each entity type has its own database table, and relationships between parent and child
+entities are represented using foreign key constraints. Each table stores only its own attributes, and related
+attributes are joined together when querying.
+
+Inheritance in the database allows for data organization and modeling of complex entity hierarchies. It promotes code
+reuse, reduces redundancy, and facilitates polymorphic queries where data from multiple entity types can be queried and
+retrieved using a common interface.
+
+However, it's important to carefully consider the trade-offs and choose an appropriate inheritance strategy based on
+factors such as performance, data integrity, and complexity of queries. Additionally, not all DBMS support native table
+inheritance, so alternative approaches or ORM solutions may be necessary in such cases.
+
+# The @DiscriminatorColumn annotation
+
+is used in Java Persistence API (JPA) to specify the column used for discriminating between different types of entities
+in a table inheritance hierarchy. It's typically used in conjunction with inheritance mapping strategies such as Single
+Table Inheritance (STI), where multiple entity types are stored in the same database table.
+
+Here's how you would typically use @DiscriminatorColumn:
+
+```dtd
+import javax.persistence.*;
+
+        @Entity
+        @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+        @DiscriminatorColumn(name = "entity_type")
+        public abstract class BaseEntity {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        // Other common fields and methods
+
+        }
+
+        @Entity
+        @DiscriminatorValue("child1")
+        public class ChildEntity1 extends BaseEntity {
+        // Specific fields and methods for ChildEntity1
+        }
+
+        @Entity
+        @DiscriminatorValue("child2")
+        public class ChildEntity2 extends BaseEntity {
+        // Specific fields and methods for ChildEntity2
+        }
+```
+
+In this example:
+
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE): Indicates that the inheritance strategy for the hierarchy is
+Single Table Inheritance (STI), where all entities in the hierarchy are stored in a single database table.
+
+@DiscriminatorColumn(name = "entity_type"): Specifies the name of the discriminator column in the database table. This
+column is used to differentiate between different types of entities in the table.
+
+@DiscriminatorValue("child1") and @DiscriminatorValue("child2"): Specifies the discriminator value for each subclass.
+This value is stored in the discriminator column to indicate the type of entity represented by each row in the table.
+
+Using @DiscriminatorColumn and @DiscriminatorValue allows JPA to determine the correct entity type when retrieving data
+from the database table and instantiate the corresponding Java objects accordingly. It's important to note that
+@DiscriminatorColumn is only applicable to inheritance strategies where entities are stored in a single table, such as
+Single Table Inheritance (STI). Other strategies like Joined Table Inheritance (JTI) and Class Table Inheritance (CTI)
+do not use discriminator columns.
+
+Composite primary keys are keys that use more than one column to identify a row in the table uniquely.
+
+## Embeded ids:
+
+We represent a composite primary key in Spring Data by using the @Embeddable annotation on a class. This key is then
+embedded in the table’s corresponding entity class as the composite primary key by using the @EmbeddedId annotation on a
+field of the @Embeddable type.
+
+Example of @EmbeddedId: Suppose we want to retrieve a specific order for a given user, we can use their email if it is
+unique. However, a user may have placed many orders making this return a list of all orders. To retrieve the specific
+order we will need a combination of both the email and the datetime. This will be the composite primary key.
+
+- These are the two entries to uniquely identify the order.
+```dtd
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Embeddable
+public class OrderId {
+
+    private String username;
+
+    private LocalDateTime orderDate;
+}
+```
+- This is then embedded into the order entity as shown below.
+```dtd
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "_order")
+public class Order implements Serializable {
+
+    @EmbeddedId
+    private OrderId id;
+
+    private String orderInfo;
+
+    private String anotherField;
+}
+```
+
+Example of @Embedded: Suppose we have a Field address that we want to use in different tables, we can embed it on that
+table inorder to avoid code duplication.
+
+- The duplicate item to be used in different entities.
+```dtd
+        @Data
+        @AllArgsConstructor
+        @NoArgsConstructor
+        @Embeddable
+        public class Address {
+
+        private String streetName;
+
+        private String houseNumber;
+
+        private String zipCode;
+        }
+```
+
+- The above code can be inserted into the orders table as shown below,
+
+```dtd
+package com.denraxcoding.springDataJpaAlibou.models.embedded;
+
+        import jakarta.persistence.*;
+        import lombok.AllArgsConstructor;
+        import lombok.Data;
+        import lombok.NoArgsConstructor;
+
+        import java.io.Serializable;
+
+        @Data
+        @AllArgsConstructor
+        @NoArgsConstructor
+        @Entity
+        @Table(name = "_order")
+        public class Order implements Serializable {
+
+        @EmbeddedId
+        private OrderId id;
+
+        @Embedded
+        private Address address;
+
+        private String orderInfo;
+
+        private String anotherField;
+        }
+```
+
+## The equals() and hashCode() methods
+
+
