@@ -12,3 +12,4 @@
 10. Add static imports Alt + Enter
 11. Rename a file or folder Shift + F6
 11. Search pres Shift + Shift
+12. Move to hovered class Ctrl + B
