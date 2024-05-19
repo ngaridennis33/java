@@ -579,40 +579,44 @@ unique. However, a user may have placed many orders making this return a list of
 order we will need a combination of both the email and the datetime. This will be the composite primary key.
 
 - These are the two entries to uniquely identify the order.
+
 ```dtd
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Embeddable
-public class OrderId {
+        @AllArgsConstructor
+        @NoArgsConstructor
+        @Embeddable
+        public class OrderId {
 
-    private String username;
+        private String username;
 
-    private LocalDateTime orderDate;
-}
+        private LocalDateTime orderDate;
+        }
 ```
+
 - This is then embedded into the order entity as shown below.
+
 ```dtd
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "_order")
-public class Order implements Serializable {
+        @AllArgsConstructor
+        @NoArgsConstructor
+        @Entity
+        @Table(name = "_order")
+        public class Order implements Serializable {
 
-    @EmbeddedId
-    private OrderId id;
+        @EmbeddedId
+        private OrderId id;
 
-    private String orderInfo;
+        private String orderInfo;
 
-    private String anotherField;
-}
+        private String anotherField;
+        }
 ```
 
 Example of @Embedded: Suppose we have a Field address that we want to use in different tables, we can embed it on that
 table inorder to avoid code duplication.
 
 - The duplicate item to be used in different entities.
+
 ```dtd
         @Data
         @AllArgsConstructor
@@ -660,5 +664,88 @@ package com.denraxcoding.springDataJpaAlibou.models.embedded;
 ```
 
 ## The equals() and hashCode() methods
+
+# Query annotation
+
+provides us with the opportunity to write a specific JPQL or SQL query in the @Query annotation:
+
+```dtd
+@Query("select u from User u where u.email like '%@gmail.com'")
+        List
+<User>findUsersWithGmailAddress();
+```
+
+In this code snippet, we can see a query retrieving users having an @gmail.com email address.
+
+The first mechanism enables us to retrieve or delete data. As for the second mechanism, it allows us to execute pretty
+much any query. However, for updating queries, we must add the @Modifying annotation.
+The @Modifying annotation is used to enhance the @Query annotation so that we can execute not only SELECT queries, but
+also INSERT, UPDATE, DELETE, and even DDL queries.
+
+Now let’s play with this annotation a little.
+
+First, let’s look at an example of a @Modifying UPDATE query:
+
+```dtd
+  @Modifying
+        @Query("update User u set u.active = false where u.lastLoginDate
+< :date")
+        void deactivateUsersNotLoggedInSince(@Param("date") LocalDate date);
+
+```
+
+exmaple2:
+Here we’re deactivating the users that haven’t logged in since a given date.
+
+Let’s try another one, where we’ll delete deactivated users:
+
+```dtd
+@Modifying
+        @Query("delete User u where u.active = false")
+        int deleteDeactivatedUsers();
+```
+
+@Transactional- This ensures that the modification being made is in the same transaction.
+
+@NamedQueries - Named queries are used for organizing, optimizing and maintaining query definitions in your application.
+This annotation is used in Java Persistence API (JPA) to define multiple static, named JPQL (Java Persistence Query
+Language) queries. They provide a way to predefine queries that can be referenced by name when needed, promoting code
+reuse and improving readability and maintainability. These queries are typically defined at the entity class level.
+
+## Why are named queries important
+
+- Encapsulation of query logic(Helps separate query definition from the rest of the application logic)
+- Optimize performance of the application since they are validated and passed and often optimized during application
+  start-up
+- Centralized. They allow you to save your query on one place such as the entity class or external class this
+  externalization simplifies query management and makes it easy to update and refactor the queries.
+
+## Use cases
+
+- When you have complex queries used in multiple places in your application
+- when you want to optimize the performance of your application for frequently executed queries.
+- when you want to improve code readability and maintainability by separating code definitions from other application
+  logic
+- when you need a tendered way of organizing and managing queries across your application.
+
+* In Summary, @NamedQueries provide;
+
+- Code Reuse: Named queries allow you to define queries once and use them in multiple places within your application.
+  This avoids duplication and makes your code cleaner.
+
+- Centralized Query Management: By defining queries at the entity level, it becomes easier to manage and modify them. If
+  a query needs to be changed, it can be updated in one place rather than in every instance where the query is used.
+
+- Readability: Using named queries improves code readability. Instead of having JPQL strings scattered throughout the
+  codebase, you refer to named queries by their names, which are more descriptive and easier to understand.
+
+- Refactor-Friendly: Refactoring is easier with named queries. When query logic changes, you only need to update the
+  named query definition rather than searching for all occurrences of the query string in the codebase.
+
+- Potential Performance Optimizations: Some JPA providers might optimize the execution of named queries by pre-compiling
+  them or caching the query plans, leading to potential performance improvements.
+
+
+
 
 
