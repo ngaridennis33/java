@@ -1,9 +1,6 @@
 package com.denraxcoding.springDataJpaAlibou.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.NamedQuery;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,9 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@NamedQuery(
-        name = "Author.findByNamedQuery",
-        query = "select a from Author a where a.age >= :age"
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name = "Author.findByNamedQuery",
+                        query = "select a from Author a where a.age >= :age"
+                ),
+                @NamedQuery(
+                        name = "Author.updateByNamedQuery",
+                        query = "update Author a set a.age = :age"
+                )
+        }
 )
 public class Author extends BaseEntity {
 
@@ -36,6 +41,6 @@ public class Author extends BaseEntity {
 
     private int age;
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors",fetch = FetchType.EAGER)
     private List<Course> courses;
 }

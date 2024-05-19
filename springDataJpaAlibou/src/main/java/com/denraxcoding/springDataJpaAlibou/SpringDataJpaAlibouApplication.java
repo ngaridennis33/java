@@ -4,11 +4,13 @@ import com.denraxcoding.springDataJpaAlibou.models.Author;
 import com.denraxcoding.springDataJpaAlibou.models.Video;
 import com.denraxcoding.springDataJpaAlibou.repositories.AuthorRepository;
 import com.denraxcoding.springDataJpaAlibou.repositories.VideoRepository;
+import com.denraxcoding.springDataJpaAlibou.specification.AuthorSpecification;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.domain.Specification;
 
 @SpringBootApplication
 public class SpringDataJpaAlibouApplication {
@@ -37,13 +39,8 @@ public class SpringDataJpaAlibouApplication {
 //			Update Author a set a.age = 22 where a.id = 1
 //            repository.updateAuthor(22, 1);
 
-//			Find by named query
-            repository.findByNamedQuery(60)
-                    .forEach(System.out::println);
-
 //            Multiple Updates
 //            repository.updateAllAuthorSAges(99);
-
 
 //			var video = Video.builder()
 //					.name("abc")
@@ -51,7 +48,21 @@ public class SpringDataJpaAlibouApplication {
 //					.build();
 //			videoRepository.save(video);
 
+            //			Find by named query
+//            repository.findByNamedQuery(60)
+//                    .forEach(System.out::println);
+
+            // Update By Named Query
+//            repository.updateByNamedQuery(60);
+
+//            Specification
+            Specification<Author> spec = Specification
+                    .where(AuthorSpecification.hasAge(60))
+//                    .and(AuthorSpecification.firstnameLike("Bo"))
+                    ;
+            repository.findAll(spec).forEach(System.out::println);
         };
+
     }
 
 }

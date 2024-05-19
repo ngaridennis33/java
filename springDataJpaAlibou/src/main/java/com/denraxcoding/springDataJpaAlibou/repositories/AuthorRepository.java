@@ -3,13 +3,22 @@ package com.denraxcoding.springDataJpaAlibou.repositories;
 import com.denraxcoding.springDataJpaAlibou.models.Author;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface AuthorRepository extends JpaRepository<Author, Integer> {
+public interface AuthorRepository extends JpaRepository<Author, Integer>, JpaSpecificationExecutor<Author> {
+
+    // Find By Named Query
+    List<Author> findByNamedQuery(@Param("age") int age);
+
+    // Update By NamedQuery
+    @Modifying
+    @Transactional
+    void updateByNamedQuery(@Param("age") int age);
 
     // Update Author a set a.age = 22 where a.id = 1
     @Modifying
@@ -21,11 +30,8 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
     @Modifying
     @Transactional
     @Query("update Author a set a.age = :age")
-    int updateAllAuthorSAges(int age);
+    void updateAllAuthorSAges(int age);
 
-
-    // Named Query
-    List<Author> findByNamedQuery(@Param("age") int age);
 
     // Select * from author
     // List<Author> findAll(String fn);
