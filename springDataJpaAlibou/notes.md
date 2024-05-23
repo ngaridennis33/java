@@ -216,6 +216,72 @@ import lombok.Data;
    useful for POJO’s which have many fields.With this annotation setting properties for an object can be done in a
    single statement of code thereby making it readable and clean.
 
+Example of builder explained:
+- suppose you have a phone class as shown below:
+```
+public class  Phone{
+  private String os;
+  private int processor;
+  private double screenSize;
+  private int battery;
+
+  public phone(String os, String processor, double screenSize, int battery){
+    super();
+    this.os = os;
+    this.processor = processor;
+    this.screenSize = screenSize;
+    this.battery = battery;
+  }
+}
+```
+- In order to create an instance of this Phone, we have to pass the parameters and they must be in the correct order as shown below,
+```
+...
+  public static void main(String[]){
+    Phone p = new Phone("Android","qwed","2",500)
+  }
+```
+- This approach is complex since we have to specify all the parameters and it cannot be blank. To solve this we use the builder pattern. 
+
+## How builder works
+- The builder pattern returns an instance of the object even when all the parameters have not been set.
+exmaple:
+```
+public class  Phone{
+  private String os;
+  private int processor;
+  private double screenSize;
+  private int battery;
+
+  public PhoneBuilder setos(String os){
+    this.os = os;
+    return this;
+  }
+   public PhoneBuilder setprocessor(String processor){
+    this.processor = processor;
+    return this;
+  }
+   public PhoneBuilder setscreenSize(int screenSize){
+    this.screenSize = screenSize
+    return this;
+  }
+   public PhoneBuilder setbattery(int battery){
+    this.battery = battery;
+    return this;
+  }
+
+  return Phone getPhone(){
+    return new Phone(os, processor, screenSize,battery)
+  } 
+}
+```
+To create the instance with some parameters,
+```
+Phone p = new PhoneBuilder().setos("Android")
+```
+- This way you are able to create an instance with only the os parameter.
+
+To reduce the boiler plate code, we use lombok @builder as shown below:
 ```dtd
 import lombok.Builder;
 
@@ -240,6 +306,8 @@ import java.io.*;
         }
         }
 ```
+
+@SuperBuilder is placed on the parent class to ensure that builders for subclasses can seamlessly extend the builder of the superclass, allowing for the construction of objects that inherit properties from their parent classes.
 
 @Entity- Typically, an entity represents a table in a relational database, and each entity instance corresponds to a row
 in that table. An entity class must follow these requirements.
