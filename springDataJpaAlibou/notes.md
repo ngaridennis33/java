@@ -953,3 +953,26 @@ Suppose we create two instances of the Laptop class, with the same price and bra
 - The above code compares the two objects based on their hexadecimal numbers and not their values hence it evaluates to
   false despite the two objects having the same properties and values. To avoid this, ensure that the objects themselves
   compare by overriding the equals() and hashCode().
+
+
+### VALIDATIONS
+
+- @NotNull- @NotNull constraint won’t allow null values for the constrained field(s). However, the field(s) can be
+  empty.
+- @NotBlank - The @NotBlank annotation uses the NotBlankValidator class, which checks that a character sequence’s
+  trimmed length is not empty; i.e. Enforces non-nullity and requires at least one non-whitespace character.
+- @NotEmpty - @NotEmpty: Guarantees that collections or arrays are not empty. This means that a field (e.g.
+  CharSequence, Collection, Map, or Array) constrained with @NotEmpty must be not null, and its size/length must be
+  greater than zero. In doing so, we’d also enforce that the object’s min and max size values are within the specified
+  min/max range:
+- @Min(value): Checks if a numeric field is greater than or equal to the specified minimum value.
+- @Max(value): Checks if a numeric field is less than or equal to the specified maximum value.
+- @Size(min, max): Validates if a string or collection size is within a specific range.
+  @Pattern(regex): Verifies if a field matches the provided regular expression.
+- @Email: Ensures a field contains a valid email address format.
+- @Digits(integer, fraction): Validates that a numeric field has a specified number of integer and fraction digits.
+- @Past and @Future : Checks that a date or time field is in the past and future respectively.
+- @AssertTrue and @AssertFalse: Ensures that a boolean field is true. and false respectively.
+- @CreditCardNumber: Validates that a field contains a valid credit card number.
+- @Valid: Triggers validation of nested objects or properties.
+- @Validated: Specifies validation groups to be applied at the class or method level.
