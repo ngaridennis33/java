@@ -1009,3 +1009,74 @@ The equals, hashCode, and toString methods, as well as the private, final fields
 
 ## The final keyword
 The final keyword is a non-access modifier used for classes, attributes and methods, which makes them non-changeable (impossible to inherit or override).
+
+#### Most widely used Jackson Annotations
+1. @JsonProperty - This annotation is useful for defining the logical property for the field used during serialization and deserialization. When you annotate a field or a getter method with @JsonProperty, you can specify a custom name for the JSON property associated with that field or method. This allows you to decouple the Java field or method names from the JSON property names.
+example:
+```
+public class MyClass {
+    @JsonProperty("customName")
+    private String fieldName;
+
+    // Constructor, getters, setters
+}
+```
+- In this example, the fieldName field in the MyClass Java class will be serialized and deserialized as "customName" in JSON, rather than using its Java field name.
+2. @JsonIgnore - @JsonIgnore is used to exclude specific fields or methods from the JSON serialization and deserialization process entirely. When you annotate a field or a method (getter or setter) with @JsonIgnore, Jackson will ignore that field or method during both serialization and deserialization. 
+Example:
+```
+
+public class MyClass {
+    @JsonIgnore
+    private String sensitiveData;
+
+    // Constructor, getters, setters
+}
+```
+- In this example, the sensitiveData field in the MyClass Java class will be excluded from the JSON serialization and deserialization process. It will not appear in the JSON representation of instances of MyClass, and it will be ignored when JSON data is deserialized into a MyClass object.
+
+3. @JsonIgnoreProperties - This annotation allows you to globally ignore certain properties during JSON serialization and deserialization for a specific Java class. This annotation is applied at the class level, meaning it affects all instances of the class.
+Example:
+```
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({ "internalField", "anotherInternalField" })
+public class MyClass {
+    private String publicField;
+    private String internalField;
+    private String anotherInternalField;
+
+    // Constructor, getters, setters
+}
+```
+- In this example, the internalField and anotherInternalField properties of the MyClass Java class will be ignored during JSON serialization and deserialization. They will not be included in the JSON representation of instances of MyClass.
+
+4. @JsonPropertyOrder -  This annotation provides control over the ordering of properties within the JSON representation of an object.When you annotate a Java class with @JsonPropertyOrder, you can specify the order of properties by listing their names in the annotation.Jackson will serialize the properties in the specified order when converting instances of the annotated class to JSON.
+Example:
+```
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({ "id", "name", "age" })
+public class MyClass {
+    private String name;
+    private int age;
+    private String id;
+
+    // Constructor, getters, setters
+}
+```
+- In this example, the properties id, name, and age of the MyClass Java class will be serialized to JSON in the specified order.
+
+5. @JsonRawValue - The @JsonRawValue annotation in Jackson is used to instruct the library to serialize a property as a raw value, rather than converting it to a JSON object or array. It allows you to directly include a string representation of JSON content within your JSON output. When you annotate a property with @JsonRawValue, Jackson will serialize the value of that property as-is, without applying any additional JSON serialization logic.This means that if the property contains a JSON string, it will be included in the JSON output without any additional escaping or quotation marks.
+```
+import com.fasterxml.jackson.annotation.JsonRawValue;
+
+public class MyData {
+    @JsonRawValue
+    private String jsonData;
+
+    // Constructor, getters, setters
+}
+```
+- In this example, the jsonData property of the MyData class will be serialized as a raw JSON string. If jsonData contains a valid JSON string, it will be included directly in the JSON output without any additional processing.
+
