@@ -1081,4 +1081,110 @@ public class MyData {
 - In this example, the jsonData property of the MyData class will be serialized as a raw JSON string. If jsonData contains a valid JSON string, it will be included directly in the JSON output without any additional processing.
 
 
+# SPRING SECURITY
+Spring Security is a powerful and customizable authentication and access control framework provided by the Spring ecosystem for Java applications. It's designed to secure Java applications at various levels, including HTTP requests, method invocations, and domain object access. It offers:
+1. Authentication:    
+  Spring Security provides comprehensive support for authentication, allowing you to authenticate users based on various mechanisms such as form-based authentication, HTTP Basic/Digest authentication, OAuth, OpenID, and more.
+  It supports multiple authentication providers, including in-memory authentication, database authentication, LDAP authentication, and custom authentication mechanisms.
 
+2.Authorization:
+  Spring Security enables you to define access control rules to protect your application's resources. You can specify who is allowed to access certain URLs or methods based on roles, permissions, or other attributes.
+  Authorization rules can be configured using annotations, XML configuration, or through Java code.
+
+3. Security Filters:
+  Spring Security integrates with the Servlet container's filter mechanism to provide security at the web application level. It includes a chain of security filters that intercept incoming HTTP requests, allowing for tasks such as authentication, authorization, session management, and CSRF protection.
+  You can customize the security filter chain to tailor security behavior according to your application's requirements.
+
+4. Session Management:
+  Spring Security offers session management features to handle user sessions securely. It includes options for session fixation protection, session concurrency control, and session timeout configuration.
+  Session management can be configured to use different storage mechanisms, such as in-memory storage, JDBC-based storage, or distributed session management solutions.
+
+5. CSRF Protection:
+  Cross-Site Request Forgery (CSRF) protection is built into Spring Security to prevent malicious attacks where unauthorized commands are transmitted from a user that the web application trusts.
+  Spring Security provides CSRF protection by generating and validating unique tokens for each session.
+
+6. Integration with Spring Framework:
+  Spring Security integrates seamlessly with other components of the Spring ecosystem, such as Spring MVC, Spring Boot, and Spring Data. This allows you to build secure applications using familiar Spring-based technologies.
+
+# Implement userDetails: 
+- Spring security has a UserDetails interface that represents user details within the security framework. It defines a contract that implementations must adhere to in order to provide essential information about a user.
+#### Here is a breakdown of how the UserDetails inteface includes:
+    * Username and Password:
+      - String getUsername(): Returns the username of the user.
+      - String getPassword(): Returns the password of the user. While this method typically returns a plaintext password, Spring Security requires that the password be encoded using a strong cryptographic algorithm (e.g., BCrypt) before being stored in a database.
+
+    * Authorities (Roles and Permissions):
+      - Collection<? extends GrantedAuthority> getAuthorities(): Returns a collection of GrantedAuthority objects that represent the authorities granted to the user. Authorities typically represent roles or permissions that determine what actions the user is allowed to perform within the application.
+
+    * Account Status:
+      - boolean isAccountNonExpired(): Indicates whether the user's account has not expired. If this method returns false, the user is considered expired and cannot be authenticated.
+      - boolean isAccountNonLocked(): Indicates whether the user's account is not locked. If this method returns false, the user is considered locked and cannot be authenticated.
+      - boolean isCredentialsNonExpired(): Indicates whether the user's credentials (password) have not expired. If this method returns false, the user's credentials are considered expired, and they may need to reset their password to authenticate.
+      - boolean isEnabled(): Indicates whether the user's account is enabled. If this method returns false, the user is considered disabled and cannot be authenticated.
+Example of UserDetails Implementation:
+```
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+
+@Data
+public class CustomUserDetails implements UserDetails {
+
+    private String username;
+    private String password;
+    private Collection<? extends GrantedAuthority> authorities;
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+}
+```
+
+
+### Principal interface
+The Principal interface represents an authenticated entity within a security context. It defines a common interface for various types of principals, such as users or services, across different security implementations. The primary method, getName(), returns the name of the principal, typically identifying the entity within the security context. For instance, a user principal might return the username. Common implementations include UserPrincipal, RolePrincipal, and ServicePrincipal, each representing different entities within security contexts.
+
+In Spring Security, Principal often signifies authenticated users. After successful authentication, Spring Security associates the authenticated user as the principal in the SecurityContext. It provides utilities, like obtaining the current authenticated principal from SecurityContextHolder, for working with principals.
+
+### @EntityListeners
+- This annotation used to specify one or more callback listener classes for an entity. These listener classes contain methods that are called at specific points in the lifecycle of an entity, such as before it is persisted, updated, or removed from the database. example is The AuditingEntityListener class which is a built-in entity listener provided by Spring Data JPA for auditing purposes. It's used to automatically populate auditing-related fields in JPA entities, such as createdBy, createdDate, lastModifiedBy, and lastModifiedDate.
+
+## FetchType.EAGER Vs FetchType.LAZY:
+
+FetchType.EAGER eagerly loads associated entities along with the main entity during querying, even if not explicitly accessed. It's convenient for upfront data loading but may cause performance issues with large datasets. FetchType.LAZY, in contrast, loads associated entities only when accessed, improving efficiency, particularly with large datasets or infrequently accessed associations.
