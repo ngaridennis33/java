@@ -1188,3 +1188,44 @@ In Spring Security, Principal often signifies authenticated users. After success
 ## FetchType.EAGER Vs FetchType.LAZY:
 
 FetchType.EAGER eagerly loads associated entities along with the main entity during querying, even if not explicitly accessed. It's convenient for upfront data loading but may cause performance issues with large datasets. FetchType.LAZY, in contrast, loads associated entities only when accessed, improving efficiency, particularly with large datasets or infrequently accessed associations.
+
+### Map<String, Object>
+- This is a collection used in Java to store additional information associated with something. 
+* Map: This refers to a data structure that holds key-value pairs.
+* <String, Object>: This specifies the type of elements the map can hold.
+  - Key: The key is a String, which means it will be a textual identifier for each piece of information.
+  - Value: The value can be any kind of Java object (Object). This allows for flexibility in storing different data types like strings, numbers, booleans, or even custom objects.
+
+## Long VS long
+* long: This is a primitive data type in Java. It represents a whole number with 64 bits of storage, allowing a range of values from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807. Primitive data types are basic building blocks of the language, stored directly in memory and accessed efficiently.
+
+* Long: This is a class in Java that represents the wrapper class for the long primitive data type. It provides additional functionalities beyond storing the numeric value. Here are some key differences:
+
+Object: Long is an object, allowing it to be treated like other objects in Java. This enables features like inheritance and polymorphism.
+Methods: Long offers various methods for manipulating long values, such as parseLong(), valueOf(), compareTo(), etc. These methods provide functionalities like converting strings to long values, comparing long values, and more.
+Null Values: Unlike primitive types which cannot be null, Long objects can be null. This can be useful for indicating the absence of a long value.
+###### Use cases:
+- Use long for basic storage e.g. when you need to store a large whole number efficiently and don't require any object-oriented features.
+- Use Long when you need to treat the number as an object, take advantage of its methods, or handle null values. For example, if you're storing long values in a collection like ArrayList, you'd use Long objects.
+
+## stream() method:
+A stream is like a temporary, processed view of a collection. It doesn't modify the original collection. Instead, it allows you to perform operations on each element of the collection in a sequential manner without having to access them individually using loops.
+Example:
+Given a list, which is a collection that holds elements in a specific order, the .stream() method will allow you to access each element of the collection.
+```
+  List<String> shoppingList = new ArrayList<>();
+  shoppingList.add("Milk");
+  shoppingList.add("Bread");
+  shoppingList.add("Eggs");
+  shoppingList.add("Apples");
+```
+Using ``` Stream<String> shoppingStream = shoppingList.stream(); ``` the user can Filter, Map and Count the elements in the list. 
+Example:
+```
+var filteredList = shoppingList.stream()
+                            .filter(item -> item.startsWith("B"))  // Filter items with "B"
+                            .collect(Collectors.toList()); 
+```
+
+
+Lastly, .collect(Collectors.toList()) is called on the stream to return a new list oject.
