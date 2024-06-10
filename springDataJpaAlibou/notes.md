@@ -1226,6 +1226,74 @@ var filteredList = shoppingList.stream()
                             .filter(item -> item.startsWith("B"))  // Filter items with "B"
                             .collect(Collectors.toList()); 
 ```
-
-
 Lastly, .collect(Collectors.toList()) is called on the stream to return a new list oject.
+
+### Higher-Order Functions (HOFs): 
+- HOFs are functions that operate on other functions as inputs or outputs.
+
+### Generic functions:
+- These are powerful features that allow you to write code that can work with different data types without having to write separate functions for each type. They use placeholders, typically denoted by letters like <T>, <U>, etc., to represent the data types the function can work with. These placeholders act like variables for data types.They are flexible since the user specifies the actual data type you want to use.
+
+### Lambda expression
+- This is a concise and flexible way of defining anonymous functions by providing a lightweight syntax for writing small blocks of code that can be passed as arguments to methods or stored in variables. By using labda expressions, the code flow is improved since the user can express complex operations on collections in a more streamlined way. Example is when using lambdas with HOFs (Higher-Order Functions) like filter, map, and forEach.
+Syntax:
+```(parameters) -> expression```
+* parameters: This is a comma-separated list of input parameters the lambda function can accept (optional). If there's only one parameter, parentheses are optional.
+* ->: This arrow separates the parameters from the function body.
+* expression: This is the code block that defines the logic of the lambda function. It can be a single expression or a block of code enclosed in curly braces ({}) for more complex logic.
+Example:
+```
+List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+
+// Filtering even numbers using a lambda with filter
+List<Integer> evenNumbers = numbers.stream()
+                                    .filter(num -> num % 2 == 0)
+                                    .collect(Collectors.toList());
+
+System.out.println(evenNumbers); // Output: [2, 4]
+```
+
+### Combining the three:
+Example:
+```
+<!-- Function: 1 -->
+    public <T> T extractClaim(String token, Function<Claims, T> claimResolver){
+        final Claims claims = extractAllClaims(token);
+        return claimResolver.apply(claims);
+    }
+
+<!-- Function: 2 -->
+    private Claims extractAllClaims(String token){
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                ;
+    }
+```
+
+### Explanation:
+
+1. Public Function: extractClaim
+* Generic Type: <T>: <T> indicates that this method is generic and can return any   type T.
+* Parameters:
+  - token: A string representing the JWT.
+  - claimResolver: A function that takes a Claims object and returns a value of type  T.i.e. in (Function<Claims, T> claimResolver), claimResolver is the name of this parameter.
+
+#### Steps:
+1. It calls the extractAllClaims method to parse the token and get all claims.
+2. It then applies the claimResolver function to the claims object to extract a specific claim and return it.
+Example: 
+```
+Date expiration = extractClaim(token, Claims::getExpiration);
+```
+- Claims::getExpiration is a method reference used as the claimResolver.
+#### Note:
+The Function interface has a single abstract method(R apply(T t)) that takes one input argument of type T and returns a result of type R. The apply method of the Function interface is called with claims as its argument. The apply method executes the function logic provided by the caller and returns the result.
+
+
+### Void vs void
+- void: Lowercase void is a keyword in Java used to specify that a method does not return any value. When you declare a method with a return type of void, it means the method performs some action but does not return any result.
+- Void: Uppercase Void is a wrapper class in Java's class hierarchy. It's part of the Java.lang package and serves as a placeholder or "void" type in generic type declarations. It's commonly used when you want to represent the absence of a type in generic contexts.
