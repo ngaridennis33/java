@@ -903,6 +903,14 @@ What it is:
   methods in Java provide several advantages, including memory efficiency, global access, object
   independence, performance, and code organization.
 
+### HashMap Vs HashSet
+##### HashMap
+* HashMap<String, String> : stores key-value pairs where each key is unique, and each key maps to exactly one value. It allows null values and the null key and also provides constant-time performance for basic operations like "get" and "put".
+  - Used when: you need to associate unique keys with specific values eg Storing error codes (keys) and their corresponding error messages (values).
+* HashSet<String> : stores unique elements, without any duplicates and does not maintain any order of the elements. It allows null values and also provides constant-time performance for basic operations like "add", "remove" and "contains".
+  - Used when: you need to store a collection of unique items eg Storing a set of unique error messages or error codes where duplicates are not allowed.
+** HashMap requires two generic parameters: one for the key and one for the value.
+** HashSet requires one generic parameter for the type of elements it stores.
 ## The equals() and hashCode() methods
 
 - Every class in java extends the object class.
