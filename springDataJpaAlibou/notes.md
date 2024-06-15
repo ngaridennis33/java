@@ -1014,6 +1014,8 @@ The equals, hashCode, and toString methods, as well as the private, final fields
   * equals: Additionally, an equals method is generated for us.This method returns true if the supplied object is of the same type and the values of all of its fields match:
   * hashCode: Similar to our equals method, a corresponding hashCode method is also generated for us.Our hashCode method returns the same value for two Person objects if all of the field values for both objects match.
   * toString: Lastly, we also receive a toString method that results in a string containing the name of the record, followed by the name of each field and its corresponding value in square brackets.
+  #### Note: 
+  - Java records are designed to be immutable data carriers with a concise syntax, and they do not inherently support builder methods. Therefore, records are ideal for use when dealing with static data that is not expected to change.
 
 ## The final keyword
 The final keyword is a non-access modifier used for classes, attributes and methods, which makes them non-changeable (impossible to inherit or override).
@@ -1305,3 +1307,23 @@ The Function interface has a single abstract method(R apply(T t)) that takes one
 ### Void vs void
 - void: Lowercase void is a keyword in Java used to specify that a method does not return any value. When you declare a method with a return type of void, it means the method performs some action but does not return any result.
 - Void: Uppercase Void is a wrapper class in Java's class hierarchy. It's part of the Java.lang package and serves as a placeholder or "void" type in generic type declarations. It's commonly used when you want to represent the absence of a type in generic contexts.
+
+## Errors and Exceptions 
+- An error is an issue in a program that prevents the program from completing its task. It is defined as a problem that mainly occur due to the lack of system resources. Example is OutOfMemoryError, LinkageError, AssertionError. Errors are usually caused by serious problems that cannot be recovered from. Errors are represented by the Error class and its subclasses.
+
+- An exception is an event that occurs during the execution of the program and interrupts the normal flow of program instructions. Exceptions can be recovered by using the try-catch block and throws keyword. Exceptions are used to handle recoverable errors within a program. Exceptions are subclasses of the java.lang.Exception class, which itself inherits from java.lang.Throwable.
+** Types of exceptions:
+  - Checked Exceptions: These are checked and detected at compile time. This ensures that exceptional conditions are accounted for before the code is executed. These exceptions are known as "checked" because the compiler checks that your code either handles them with a try-catch block or declares that it might throw them using the throws keyword. example is FileNotFoundException when no file is detected, SQLException when theres an error connecting with database etc.
+  - Unchecked Exceptions (Runtime Exceptions): These are detected at runtime and are typically caused by programming errors, allowing for more flexibility in handling. Example is NullPointerException: Thrown when a null reference is accessed.
+
+
+
+
+
+
+
+
+
+
+
+
